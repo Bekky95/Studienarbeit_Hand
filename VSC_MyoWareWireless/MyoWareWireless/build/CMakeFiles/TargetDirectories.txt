@@ -628,13 +628,6 @@ C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWar
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/wifi_provisioning/CMakeFiles/install.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/wifi_provisioning/CMakeFiles/install/local.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/wifi_provisioning/CMakeFiles/install/strip.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/__idf_ESP32Servo.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/edit_cache.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/rebuild_cache.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/list_install_components.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/install.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/install/local.dir
-C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/install/strip.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/CMakeFiles/__idf_main.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/CMakeFiles/edit_cache.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
@@ -642,3 +635,10 @@ C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWar
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/CMakeFiles/install.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/CMakeFiles/install/local.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/CMakeFiles/install/strip.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/__idf_ESP32Servo.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/edit_cache.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/rebuild_cache.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/list_install_components.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/install.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/install/local.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/CMakeFiles/install/strip.dir
