@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Lucian/esp/esp-idf/components/spi_flash
+# Install script for directory: C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/spi_flash
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

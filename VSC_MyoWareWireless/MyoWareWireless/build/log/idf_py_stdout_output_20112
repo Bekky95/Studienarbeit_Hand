@@ -1,0 +1,106 @@
+-- ccache will be used for faster recompilation
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/sdkconfig
+-- Compiler supported targets: xtensa-esp-elf
+-- App "MyoWareWireless" version: 2aebe63-dirty
+-- Adding linker script C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_system/ld/esp32/sections.ld.in
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script C:/Users/Lucian/esp/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: app_trace app_update bootloader bootloader_support bt cmock console cxx driver efuse esp-tls esp_adc esp_app_format esp_bootloader_format esp_coex esp_common esp_eth esp_event esp_gdbstub esp_hid esp_http_client esp_http_server esp_https_ota esp_https_server esp_hw_support esp_lcd esp_local_ctrl esp_mm esp_netif esp_netif_stack esp_partition esp_phy esp_pm esp_psram esp_ringbuf esp_rom esp_system esp_timer esp_wifi espcoredump esptool_py fatfs freertos hal heap http_parser idf_test ieee802154 json log lwip main mbedtls mqtt newlib nvs_flash nvs_sec_provider openthread partition_table perfmon protobuf-c protocomm pthread sdmmc soc spi_flash spiffs tcp_transport ulp unity usb vfs wear_levelling wifi_provisioning wpa_supplicant xtensa
+-- Component paths: C:/Users/Lucian/esp/esp-idf/components/app_trace C:/Users/Lucian/esp/esp-idf/components/app_update C:/Users/Lucian/esp/esp-idf/components/bootloader C:/Users/Lucian/esp/esp-idf/components/bootloader_support C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/bt C:/Users/Lucian/esp/esp-idf/components/cmock C:/Users/Lucian/esp/esp-idf/components/console C:/Users/Lucian/esp/esp-idf/components/cxx C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/driver C:/Users/Lucian/esp/esp-idf/components/efuse C:/Users/Lucian/esp/esp-idf/components/esp-tls C:/Users/Lucian/esp/esp-idf/components/esp_adc C:/Users/Lucian/esp/esp-idf/components/esp_app_format C:/Users/Lucian/esp/esp-idf/components/esp_bootloader_format C:/Users/Lucian/esp/esp-idf/components/esp_coex C:/Users/Lucian/esp/esp-idf/components/esp_common C:/Users/Lucian/esp/esp-idf/components/esp_eth C:/Users/Lucian/esp/esp-idf/components/esp_event C:/Users/Lucian/esp/esp-idf/components/esp_gdbstub C:/Users/Lucian/esp/esp-idf/components/esp_hid C:/Users/Lucian/esp/esp-idf/components/esp_http_client C:/Users/Lucian/esp/esp-idf/components/esp_http_server C:/Users/Lucian/esp/esp-idf/components/esp_https_ota C:/Users/Lucian/esp/esp-idf/components/esp_https_server C:/Users/Lucian/esp/esp-idf/components/esp_hw_support C:/Users/Lucian/esp/esp-idf/components/esp_lcd C:/Users/Lucian/esp/esp-idf/components/esp_local_ctrl C:/Users/Lucian/esp/esp-idf/components/esp_mm C:/Users/Lucian/esp/esp-idf/components/esp_netif C:/Users/Lucian/esp/esp-idf/components/esp_netif_stack C:/Users/Lucian/esp/esp-idf/components/esp_partition C:/Users/Lucian/esp/esp-idf/components/esp_phy C:/Users/Lucian/esp/esp-idf/components/esp_pm C:/Users/Lucian/esp/esp-idf/components/esp_psram C:/Users/Lucian/esp/esp-idf/components/esp_ringbuf C:/Users/Lucian/esp/esp-idf/components/esp_rom C:/Users/Lucian/esp/esp-idf/components/esp_system C:/Users/Lucian/esp/esp-idf/components/esp_timer C:/Users/Lucian/esp/esp-idf/components/esp_wifi C:/Users/Lucian/esp/esp-idf/components/espcoredump C:/Users/Lucian/esp/esp-idf/components/esptool_py C:/Users/Lucian/esp/esp-idf/components/fatfs C:/Users/Lucian/esp/esp-idf/components/freertos C:/Users/Lucian/esp/esp-idf/components/hal C:/Users/Lucian/esp/esp-idf/components/heap C:/Users/Lucian/esp/esp-idf/components/http_parser C:/Users/Lucian/esp/esp-idf/components/idf_test C:/Users/Lucian/esp/esp-idf/components/ieee802154 C:/Users/Lucian/esp/esp-idf/components/json C:/Users/Lucian/esp/esp-idf/components/log C:/Users/Lucian/esp/esp-idf/components/lwip C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/main C:/Users/Lucian/esp/esp-idf/components/mbedtls C:/Users/Lucian/esp/esp-idf/components/mqtt C:/Users/Lucian/esp/esp-idf/components/newlib C:/Users/Lucian/esp/esp-idf/components/nvs_flash C:/Users/Lucian/esp/esp-idf/components/nvs_sec_provider C:/Users/Lucian/esp/esp-idf/components/openthread C:/Users/Lucian/esp/esp-idf/components/partition_table C:/Users/Lucian/esp/esp-idf/components/perfmon C:/Users/Lucian/esp/esp-idf/components/protobuf-c C:/Users/Lucian/esp/esp-idf/components/protocomm C:/Users/Lucian/esp/esp-idf/components/pthread C:/Users/Lucian/esp/esp-idf/components/sdmmc C:/Users/Lucian/esp/esp-idf/components/soc C:/Users/Lucian/esp/esp-idf/components/spi_flash C:/Users/Lucian/esp/esp-idf/components/spiffs C:/Users/Lucian/esp/esp-idf/components/tcp_transport C:/Users/Lucian/esp/esp-idf/components/ulp C:/Users/Lucian/esp/esp-idf/components/unity C:/Users/Lucian/esp/esp-idf/components/usb C:/Users/Lucian/esp/esp-idf/components/vfs C:/Users/Lucian/esp/esp-idf/components/wear_levelling C:/Users/Lucian/esp/esp-idf/components/wifi_provisioning C:/Users/Lucian/esp/esp-idf/components/wpa_supplicant C:/Users/Lucian/esp/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build
+[0/1] Re-running CMake...
+[1/12] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\Lucian\n2120915\Robo_Hand\Studienarbeit_Hand\VSC_MyoWareWireless\MyoWareWireless\build\bootloader\esp-idf\esptool_py && C:\Users\Lucian\.espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Users/Lucian/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[2/10] Building C object esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj
+[3/10] Linking C static library esp-idf\esp_app_format\libesp_app_format.a
+[4/10] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+In file included from C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/main/main.c:11:
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/driver/deprecated/driver/adc.h:19:2: warning: #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively" [-Wcpp]
+   19 | #warning "legacy adc driver is deprecated, please migrate to use esp_adc/adc_oneshot.h and esp_adc/adc_continuous.h for oneshot mode and continuous mode drivers respectively"
+      |  ^~~~~~~
+[5/10] Linking C static library esp-idf\main\libmain.a
+[6/10] Generating ld/sections.ld
+[7/10] Linking CXX executable MyoWareWireless.elf
+[8/10] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/MyoWareWireless.bin
+[9/10] cmd.exe /C "cd /D C:\Users\Lucian\n2120915\Robo_Hand\Studienarbeit_Hand\VSC_MyoWareWireless\MyoWareWireless\build\esp-idf\esptool_py && C:\Users\Lucian\.espressif\python_env\idf5.2_py3.11_env\Scripts\python.exe C:/Users/Lucian/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/partition_table/partition-table.bin C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/MyoWareWireless.bin"
+MyoWareWireless.bin binary size 0xe4440 bytes. Smallest app partition is 0x100000 bytes. 0x1bbc0 bytes (11%) free.
+[9/10] cmd.exe /C "cd /D C:\Users\Lucian\esp\esp-idf\components\esptool_py && C:\Users\Lucian\.espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Users/Lucian/esp/esp-idf -D SERIAL_TOOL=C:/Users/Lucian/.espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe;;C:/Users/Lucian/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_Aesptool.py --chip esp32 -p COM9 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 MyoWareWireless.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.7.0
+Serial port COM9
+Connecting......
+Chip is ESP32-D0WD-V3 (revision v3.1)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: e4:65:b8:14:e7:bc
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000f4fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26720 bytes to 16358...
+Writing at 0x00001000... (100 %)
+Wrote 26720 bytes (16358 compressed) at 0x00001000 in 0.7 seconds (effective 323.9 kbit/s)...
+Hash of data verified.
+Compressed 934976 bytes to 533996...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001f368... (6 %)
+Writing at 0x0002ed78... (9 %)
+Writing at 0x00038bee... (12 %)
+Writing at 0x00043c98... (15 %)
+Writing at 0x000496cc... (18 %)
+Writing at 0x0004f22a... (21 %)
+Writing at 0x00054c91... (24 %)
+Writing at 0x0005a702... (27 %)
+Writing at 0x0006030b... (30 %)
+Writing at 0x00066d60... (33 %)
+Writing at 0x0006cc54... (36 %)
+Writing at 0x00072c32... (39 %)
+Writing at 0x000791e3... (42 %)
+Writing at 0x0007f584... (45 %)
+Writing at 0x00085761... (48 %)
+Writing at 0x0008b77b... (51 %)
+Writing at 0x000916a7... (54 %)
+Writing at 0x000975ff... (57 %)
+Writing at 0x0009d723... (60 %)
+Writing at 0x000a3bba... (63 %)
+Writing at 0x000a961d... (66 %)
+Writing at 0x000af227... (69 %)
+Writing at 0x000b50d2... (72 %)
+Writing at 0x000bb47c... (75 %)
+Writing at 0x000c1341... (78 %)
+Writing at 0x000c7de1... (81 %)
+Writing at 0x000d1a19... (84 %)
+Writing at 0x000d9062... (87 %)
+Writing at 0x000deff0... (90 %)
+Writing at 0x000e481a... (93 %)
+Writing at 0x000ea556... (96 %)
+Writing at 0x000f06ce... (100 %)
+Wrote 934976 bytes (533996 compressed) at 0x00010000 in 12.2 seconds (effective 611.0 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.0 seconds (effective 511.8 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+RGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build -P C:/Users/Lucian/esp/esp-idf/components/esptool_py/run_serial_tool.cmake"

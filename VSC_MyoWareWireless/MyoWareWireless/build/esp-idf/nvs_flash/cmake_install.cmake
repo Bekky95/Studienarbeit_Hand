@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Lucian/esp/esp-idf/components/nvs_flash
+# Install script for directory: C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/nvs_flash
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

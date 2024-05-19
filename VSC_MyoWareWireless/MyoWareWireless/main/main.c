@@ -2,6 +2,7 @@
 #include <string.h>
 #include "esp_system.h"
 #include "esp_bt.h"
+#include "nvs_flash.h"
 #include "esp_bt_main.h"
 #include "esp_bt_device.h"
 #include "esp_gap_bt_api.h"
@@ -58,6 +59,14 @@ static void esp_spp_cb(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
 
 void app_main(void)
 {
+
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK( nvs_flash_erase() );
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK( ret );
+
     //zero-initialize the GPIO config structure.
     gpio_config_t io_conf = {};
     io_conf.intr_type = GPIO_INTR_DISABLE;
@@ -71,6 +80,8 @@ void app_main(void)
     io_conf.pull_up_en = 0;
     // Configure output
     ESP_ERROR_CHECK(gpio_config(&io_conf));
+    gpio_set_level(GPIO_OUTPUT_IO_0, 1);
+
 
     // Initialize Bluetooth controller:
     // Set the Bluetooth config
@@ -96,6 +107,7 @@ void app_main(void)
     adc1_config_width(ADC_WIDTH_BIT_12);
     adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_0);
 
+    gpio_set_level(GPIO_OUTPUT_IO_0, 0);
     // Main loop to read and send ADC values
     while (1) {
         uint16_t analog_value = adc1_get_raw(ADC1_CHANNEL_0);
