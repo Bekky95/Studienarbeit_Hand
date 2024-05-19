@@ -1,5 +1,5 @@
 source "C:/Users/Lucian/esp/esp-idf/components/app_trace/Kconfig"
-source "C:/Users/Lucian/esp/esp-idf/components/bt/Kconfig"
+source "C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/bt/Kconfig"
 source "C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/components/driver/Kconfig"
 source "C:/Users/Lucian/esp/esp-idf/components/efuse/Kconfig"
 source "C:/Users/Lucian/esp/esp-idf/components/esp-tls/Kconfig"

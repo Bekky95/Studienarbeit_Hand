@@ -417,8 +417,3 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/main/cmake_install.cmake")
 endif()
 
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build/esp-idf/ESP32Servo/cmake_install.cmake")
-endif()
-

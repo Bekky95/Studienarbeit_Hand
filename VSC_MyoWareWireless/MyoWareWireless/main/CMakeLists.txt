@@ -1,4 +1,4 @@
 idf_component_register(SRCS "main.c"
-                    #REQUIRES "ESP32Servo"
                     REQUIRES driver
+                    REQUIRES bt
                     INCLUDE_DIRS ".")
