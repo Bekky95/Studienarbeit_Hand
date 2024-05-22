@@ -629,6 +629,13 @@ C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/Myowar
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/wifi_provisioning/CMakeFiles/install.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/wifi_provisioning/CMakeFiles/install/local.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/wifi_provisioning/CMakeFiles/install/strip.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/__idf_servo.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/edit_cache.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/rebuild_cache.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/list_install_components.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/install.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/install/local.dir
+C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/servo/CMakeFiles/install/strip.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/main/CMakeFiles/__idf_main.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/main/CMakeFiles/edit_cache.dir
 C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyowareWireless_Reciever/build/esp-idf/main/CMakeFiles/rebuild_cache.dir

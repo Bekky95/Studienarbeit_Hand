@@ -9,10 +9,24 @@
 #include "esp_gap_bt_api.h"
 #include "esp_spp_api.h"
 #include "esp_log.h"
+#include "iot_servo.h"
 
 #define SPP_TAG "SPP_RECEIVER"
 #define DEVICE_NAME "SPP_RECEIVER"
 #define SERVER_NAME "SPP_SERVER"
+
+#define LEDC_OUTPUT_IO (5)
+
+//GPIO Defines:
+#define GPIO_OUTPUT_IO_0    5
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<GPIO_OUTPUT_IO_0))
+
+//Servo Defines:
+#define SERVO_CH0_PIN  5
+/*#define SERVO_CH1_PIN
+#define SERVO_CH2_PIN
+#define SERVO_CH3_PIN
+#define SERVO_CH4_PIN*/
 
 void handle_data(uint8_t* data, uint16_t len)
 {
@@ -141,6 +155,76 @@ void esp_bt_gap_cb(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *param)
     }
     return;
 }
+
+// LEDC Init Function 
+static void ledc_init(void)
+{
+    // Prepare and then apply the LEDC PWM timer configuration
+    ledc_timer_config_t ledc_timer = {
+        .speed_mode       = LEDC_LOW_SPEED_MODE,
+        .timer_num        = LEDC_TIMER_0,
+        .duty_resolution  = LEDC_TIMER_13_BIT,
+        .freq_hz          = 4000,  // Set output frequency at 4 kHz
+        .clk_cfg          = LEDC_AUTO_CLK
+    };
+    ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
+
+    // Prepare and then apply the LEDC PWM channel configuration
+    ledc_channel_config_t ledc_channel = {
+        .speed_mode     = LEDC_LOW_SPEED_MODE,
+        .channel        = LEDC_CHANNEL_0,
+        .timer_sel      = LEDC_TIMER_0,
+        .intr_type      = LEDC_INTR_DISABLE,
+        .gpio_num       = LEDC_OUTPUT_IO,               // GPIO NUMBER
+        .duty           = 0, // Set duty to 0%
+        .hpoint         = 0
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+}
+
+static void gpio_init(void)
+{
+    //TODO: init gpio as output (PWM)
+    gpio_config_t gpio_cfg ={
+        .intr_type       = GPIO_INTR_DISABLE,
+        .mode            = GPIO_MODE_OUTPUT,
+        .pin_bit_mask    = GPIO_OUTPUT_PIN_SEL,
+        .pull_down_en    = 0,
+        .pull_up_en      = 0,
+    };
+    ESP_ERROR_CHECK(gpio_config(&gpio_cfg));
+}
+
+static void servo_init(void)
+{
+    servo_config_t servo_cfg = {
+        .max_angle = 180,
+        .min_width_us = 500,
+        .max_width_us = 2500,
+        .freq = 50,
+        .timer_number = LEDC_TIMER_0,
+        .channels = {
+            .servo_pin = {
+                SERVO_CH0_PIN,
+               /* SERVO_CH1_PIN,
+                SERVO_CH2_PIN,
+                SERVO_CH3_PIN,
+                SERVO_CH4_PIN,*/
+            },
+            .ch = {
+                LEDC_CHANNEL_0,
+                /*LEDC_CHANNEL_1,
+                LEDC_CHANNEL_2,
+                LEDC_CHANNEL_3,
+                LEDC_CHANNEL_4,*/
+            },
+        },
+        .channel_number = 1,
+    };
+
+    iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg);
+}
+
 void app_main(void)
 {
     char bda_str[18] = {0};
@@ -150,6 +234,13 @@ void app_main(void)
         ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK( ret );
+
+    // Init the GPIO
+    gpio_init();
+    //Init the LEDC
+    ledc_init();
+    // Init the servo
+    servo_init();
 
     ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_BLE));
 
@@ -189,5 +280,20 @@ void app_main(void)
     // Main loop
     while (1) {
         vTaskDelay(pdMS_TO_TICKS(1000)); // Run every 1 second
+
+        float angle = 100.0f;
+
+        // Set angle to 100 degree
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, angle);
+
+        for(uint8_t i = 0; i <= 180; i = i +20)
+        {
+            iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, i);
+            ESP_LOGI(SPP_TAG,"...Changing Angle...");
+            vTaskDelay(pdMS_TO_TICKS(1000));
+        }
+
+         iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, 0);
+
     }
 }

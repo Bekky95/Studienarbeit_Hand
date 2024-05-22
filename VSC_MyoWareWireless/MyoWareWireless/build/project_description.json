@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "MyoWareWireless",
-    "project_version":    "93dc354-dirty",
+    "project_version":    "7e7f639-dirty",
     "project_path":       "C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless",
     "idf_path":           "C:/Users/Lucian/esp/esp-idf",
     "build_dir":          "C:/Users/Lucian/n2120915/Robo_Hand/Studienarbeit_Hand/VSC_MyoWareWireless/MyoWareWireless/build",
