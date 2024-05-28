@@ -10,30 +10,59 @@
 #include "esp_spp_api.h"
 #include "esp_log.h"
 #include "iot_servo.h"
+#include "esp_timer.h"
 
+// Bluetooth Defines:
 #define SPP_TAG "SPP_RECEIVER"
 #define DEVICE_NAME "SPP_RECEIVER"
 #define SERVER_NAME "SPP_SERVER"
 
-#define LEDC_OUTPUT_IO (5)
+//LEDC Defines: TODO: use this to change channel in set angle and use the gpio in the channel init 
+#define LEDC_PINKY    (15)
+#define LEDC_RING     (2)
+#define LEDC_MIDDLE   (0)
+#define LEDC_POINTER  (5)
+#define LEDC_THUMB    (18)
 
 //GPIO Defines:
-#define GPIO_OUTPUT_IO_0    5
-#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<GPIO_OUTPUT_IO_0))
+#define GPIO_PINKY    15
+#define GPIO_RING     2
+#define GPIO_MIDDLE   0
+#define GPIO_POINTER  5
+#define GPIO_THUMB    18
+#define GPIO_OUTPUT_PIN_SEL  ((1ULL<<GPIO_PINKY) | (1ULL<<GPIO_RING) | (1ULL<<GPIO_MIDDLE) | (1ULL<<GPIO_POINTER) | (1ULL<<GPIO_THUMB))
 
 //Servo Defines:
-#define SERVO_CH0_PIN  5
-/*#define SERVO_CH1_PIN
-#define SERVO_CH2_PIN
-#define SERVO_CH3_PIN
-#define SERVO_CH4_PIN*/
+#define SERVO_PINKY   15
+#define SERVO_RING    2
+#define SERVO_MIDDLE  0
+#define SERVO_POINTER 5
+#define SERVO_THUMB   18
+
+//Threshold
+#define THRESHOLD_VAL 10
 
 void handle_data(uint8_t* data, uint16_t len)
 {
-    for(uint8_t i = 0; i < len; i++)
+    int val = data[0];
+    if( val >THRESHOLD_VAL )
     {
-        ESP_LOGI(SPP_TAG, "Data[%d] recieved: %d",i, data[i]);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, 180);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 1, 180);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 2, 180);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 3, 180);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 4, 180);
+
     }
+    else if (val < THRESHOLD_VAL)
+    {
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, 0);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 1, 0);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 2, 0);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 3, 0);
+        iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 4, 5);
+    }
+    ESP_LOGI(SPP_TAG, " %d", val);
 }
 
 static char *bda2str(uint8_t * bda, char *str, size_t size)
@@ -169,22 +198,74 @@ static void ledc_init(void)
     };
     ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
 
-    // Prepare and then apply the LEDC PWM channel configuration
-    ledc_channel_config_t ledc_channel = {
+    // Prepare and then apply the LEDC PWM channel configuration for the Pinky
+    ledc_channel_config_t ledc_channel_pinky = {
         .speed_mode     = LEDC_LOW_SPEED_MODE,
         .channel        = LEDC_CHANNEL_0,
         .timer_sel      = LEDC_TIMER_0,
         .intr_type      = LEDC_INTR_DISABLE,
-        .gpio_num       = LEDC_OUTPUT_IO,               // GPIO NUMBER
+        .gpio_num       = LEDC_PINKY,            // GPIO NUMBER
         .duty           = 0, // Set duty to 0%
         .hpoint         = 0
     };
-    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel_pinky));
+    ESP_LOGI(SPP_TAG, "Pinky Init");
+
+    // Prepare and then apply the LEDC PWM channel configuration for the Ring
+    ledc_channel_config_t ledc_channel_ring = {
+        .speed_mode     = LEDC_LOW_SPEED_MODE,
+        .channel        = LEDC_CHANNEL_1,
+        .timer_sel      = LEDC_TIMER_0,
+        .intr_type      = LEDC_INTR_DISABLE,
+        .gpio_num       = LEDC_RING,            // GPIO NUMBER
+        .duty           = 0, // Set duty to 0%
+        .hpoint         = 0
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel_ring));
+    ESP_LOGI(SPP_TAG, "Ring init");
+
+    // Prepare and then apply the LEDC PWM channel configuration for the middle
+    ledc_channel_config_t ledc_channel_middle = {
+        .speed_mode     = LEDC_LOW_SPEED_MODE,
+        .channel        = LEDC_CHANNEL_2,
+        .timer_sel      = LEDC_TIMER_0,
+        .intr_type      = LEDC_INTR_DISABLE,
+        .gpio_num       = LEDC_MIDDLE,            // GPIO NUMBER
+        .duty           = 0, // Set duty to 0%
+        .hpoint         = 0
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel_middle));
+    ESP_LOGI(SPP_TAG, "Middle init");
+
+    // Prepare and then apply the LEDC PWM channel configuration for the pointer
+    ledc_channel_config_t ledc_channel_pointer = {
+        .speed_mode     = LEDC_LOW_SPEED_MODE,
+        .channel        = LEDC_CHANNEL_3,
+        .timer_sel      = LEDC_TIMER_0,
+        .intr_type      = LEDC_INTR_DISABLE,
+        .gpio_num       = LEDC_POINTER,            // GPIO NUMBER
+        .duty           = 0, // Set duty to 0%
+        .hpoint         = 0
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel_pointer));
+    ESP_LOGI(SPP_TAG, "Pointer init");
+
+    // Prepare and then apply the LEDC PWM channel configuration for the thumb
+    ledc_channel_config_t ledc_channel_thumb = {
+        .speed_mode     = LEDC_LOW_SPEED_MODE,
+        .channel        = LEDC_CHANNEL_4,
+        .timer_sel      = LEDC_TIMER_0,
+        .intr_type      = LEDC_INTR_DISABLE,
+        .gpio_num       = LEDC_THUMB,            // GPIO NUMBER
+        .duty           = 0, // Set duty to 0%
+        .hpoint         = 0
+    };
+    ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel_thumb));
+    ESP_LOGI(SPP_TAG, "Thumn init");
 }
 
 static void gpio_init(void)
 {
-    //TODO: init gpio as output (PWM)
     gpio_config_t gpio_cfg ={
         .intr_type       = GPIO_INTR_DISABLE,
         .mode            = GPIO_MODE_OUTPUT,
@@ -205,24 +286,31 @@ static void servo_init(void)
         .timer_number = LEDC_TIMER_0,
         .channels = {
             .servo_pin = {
-                SERVO_CH0_PIN,
-               /* SERVO_CH1_PIN,
-                SERVO_CH2_PIN,
-                SERVO_CH3_PIN,
-                SERVO_CH4_PIN,*/
+                SERVO_PINKY,
+                SERVO_RING,
+                SERVO_MIDDLE,
+                SERVO_POINTER,
+                SERVO_THUMB,
             },
             .ch = {
                 LEDC_CHANNEL_0,
-                /*LEDC_CHANNEL_1,
+                LEDC_CHANNEL_1,
                 LEDC_CHANNEL_2,
                 LEDC_CHANNEL_3,
-                LEDC_CHANNEL_4,*/
+                LEDC_CHANNEL_4,
             },
         },
         .channel_number = 1,
     };
 
-    iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg);
+    ESP_ERROR_CHECK(iot_servo_init(LEDC_LOW_SPEED_MODE, &servo_cfg));
+
+    // Set all servos to 0 as starting position
+    iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, 0);
+    iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 1, 0);
+    iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 2, 0);
+    iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 3, 0);
+    iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 4, 5);
 }
 
 void app_main(void)
@@ -279,8 +367,9 @@ void app_main(void)
 
     // Main loop
     while (1) {
-        vTaskDelay(pdMS_TO_TICKS(1000)); // Run every 1 second
-
+    
+        vTaskDelay(pdMS_TO_TICKS(50)); // Run every 1 second
+/*
         float angle = 100.0f;
 
         // Set angle to 100 degree
@@ -294,6 +383,7 @@ void app_main(void)
         }
 
          iot_servo_write_angle(LEDC_LOW_SPEED_MODE, 0, 0);
+         */
 
     }
 }

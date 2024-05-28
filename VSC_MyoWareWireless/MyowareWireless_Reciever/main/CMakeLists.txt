@@ -3,4 +3,5 @@ idf_component_register(SRCS "main.c"
                     REQUIRES bt
                     REQUIRES nvs_flash
                     REQUIRES servo
+                    REQUIRES esp_timer
                     INCLUDE_DIRS ".")

@@ -1,7 +1,1 @@
-0000000000000000000000000000000000000000 a18b6a92124682c562a555091d67e5344c072767 Lucian Perujo <2120915@stud.hs-mannheim.de> 1715687606 +0200	clone: from https://github.com/Bekky95/Studienarbeit_Hand.git
-a18b6a92124682c562a555091d67e5344c072767 ea318574ced34c8ac6d4fdc6ee24960c8e0b62cc Lucian Perujo <2120915@stud.hs-mannheim.de> 1715806964 +0200	commit: added myowarewireless projekt doesnt fucking work n idk why not
-ea318574ced34c8ac6d4fdc6ee24960c8e0b62cc e1738bb3e1d7de554f488961d438b7d984c24ae1 Lucian Perujo <2120915@stud.hs-mannheim.de> 1715857772 +0200	commit: fixed linker issue fucking endlich
-e1738bb3e1d7de554f488961d438b7d984c24ae1 a1dd97e58a845310505e4f980275f0dce3d1426f Lucian Perujo <2120915@stud.hs-mannheim.de> 1716118427 +0200	commit: fixed a bunch of stuff but it sender program builds now yay :)
-a1dd97e58a845310505e4f980275f0dce3d1426f 2aebe633bdc7e968698018e5b3b9c460e571ca39 Lucian Perujo <2120915@stud.hs-mannheim.de> 1716118562 +0200	commit: uptdated readme
-2aebe633bdc7e968698018e5b3b9c460e571ca39 93dc3543b6d42d1414abe82a725c23c24170ebfb Lucian Perujo <2120915@stud.hs-mannheim.de> 1716126096 +0200	commit: added receiver projekt, both build but dont connect to each other :(
-93dc3543b6d42d1414abe82a725c23c24170ebfb 7e7f639191dd4edab19384907a6a575bca9dd195 Lucian Perujo <2120915@stud.hs-mannheim.de> 1716210009 +0200	commit: bug fixes connects and transmits data now lets gooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo!
+8664a16e30753e75a4be334a5226708db7bf8c7e

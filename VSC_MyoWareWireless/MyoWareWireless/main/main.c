@@ -273,6 +273,10 @@ static void esp_gap_cb(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *param
 
 void app_main(void)
 {
+    int v_out = 0;
+    int adc_max = 950;
+    int d_max = 4095;
+
     char bda_str[18] = {0};
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
@@ -327,7 +331,7 @@ void app_main(void)
 
     // Configure ADC
     adc1_config_width(ADC_WIDTH_BIT_12);
-    adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_0);
+    adc1_config_channel_atten(ADC1_CHANNEL_3, ADC_ATTEN_DB_0);
 
     gpio_set_level(GPIO_OUTPUT_IO_0, 0);
 
@@ -342,7 +346,9 @@ void app_main(void)
     ESP_LOGI(SPP_TAG, "Own address:[%s]", bda2str((uint8_t *)esp_bt_dev_get_address(), bda_str, sizeof(bda_str)));
     // Main loop to read and send ADC values
     while (1) {
-        spp_data[0] = adc1_get_raw(ADC1_CHANNEL_0);
+        //TODO: adjust poti to stabilize value and add poti to calculation:
+        v_out = adc1_get_raw(ADC1_CHANNEL_3) * adc_max / d_max;
+        spp_data[0] = v_out;
         
         if (server_found) {
             esp_spp_write(spp_handle, SPP_DATA_LEN, spp_data);
@@ -358,7 +364,7 @@ void app_main(void)
             //esp_spp_start_discovery(SPP_SERVER_NAME);
             vTaskDelay(pdMS_TO_TICKS(1000)); // Send every 1 second
         }
-        vTaskDelay(pdMS_TO_TICKS(1000)); // Send every 1 second
+        vTaskDelay(pdMS_TO_TICKS(250)); // Send every 1 second
     }
     
 }

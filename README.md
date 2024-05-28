@@ -3,9 +3,14 @@ Studienarbeit Hand Sommersemester 2024
 
 ##Todo List:
 - [ ] Hand zum laufen bringen
-- [ ] 9V Batterien kaufen
+- [x] 9V Batterien kaufen
 - [ ] Servomotoren und gespannte Fäden kontrollieren (defekt?)
-- [ ] Software auf ESP32 
+	-> NOTE: daumen kann nicht ganz auf 0° gezogen werden
+- [x] Software auf ESP32 
+- [ ] den Handschuh zum Laufen bringen
+- [ ] bluetooth mit batterien probieren
+- [ ] Modus wechsel durch knopf
+- [ ] Status LED für bluetooth einbauen
 
 PIN CONFIG:
 
@@ -19,11 +24,11 @@ IO33/9
 IO27/12
 
 GPIO 4 Servo:
-IO15/23
-IO2/24
-IO0/25
-IO5/29
-IO18/30
+IO15/23 Pinky
+IO2/24  Ring
+IO0/25	Middle
+IO5/29	Pointer
+IO18/30	Thumb
 
 GPIO 4 other stuff:
 IO22/36
