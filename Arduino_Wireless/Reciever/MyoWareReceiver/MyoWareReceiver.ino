@@ -48,8 +48,28 @@
 */
 
 #include <ArduinoBLE.h>
+#include <Arduino.h>
 #include <MyoWare.h>
 #include <vector>
+#include <Servo.h>
+
+#define THRESHOLD 100
+
+// Pin defines
+#define THUMB_PIN   18
+#define RING_PIN    2
+#define MIDDLE_PIN  0
+#define POINTER_PIN 5
+#define THUMB_PIN   18
+
+
+// Servo class objects
+Servo servoThumb;
+Servo servoRing;
+Servo servoMiddle;
+Servo servoPointer;
+Servo servoPinky;
+
 
 // debug parameters
 const bool debugLogging = false; // set to true for verbose logging to serial
@@ -63,6 +83,21 @@ void setup()
 {
   Serial.begin(115200);
   while (!Serial);
+
+  // Attach the servo to the corresponding pin
+  servoThumb.attach(THUMB_PIN);
+  servoRing.attach(RING_PIN);
+  servoMiddle.attach(MIDDLE_PIN);
+  servoPointer.attach(POINTER_PIN);
+  servoThumb.attach(THUMB_PIN);
+
+/*
+  pinMode(THUMB_PIN,OUTPUT);
+  pinMode(RING_PIN,OUTPUT);
+  pinMode(MIDDLE_PIN,OUTPUT);
+  pinMode(POINTER_PIN,OUTPUT);
+  pinMode(THUMB_PIN,OUTPUT);
+*/
 
   pinMode(myoware.getStatusLEDPin(), OUTPUT); // initialize the built-in LED pin to indicate 
                                               // when a central is connected
@@ -97,6 +132,7 @@ void setup()
     myoware.blinkStatusLED();
 
     BLEDevice peripheral = BLE.available();
+    // If peripheral is there an not yet in the list of periphs
     if (peripheral && std::find(vecMyoWareShields.begin(), vecMyoWareShields.end(), peripheral) == vecMyoWareShields.end())
     {
       if (debugLogging)
@@ -206,6 +242,21 @@ void loop()
       Serial.print(","); 
   }
   Serial.println("");
+}
+
+// adjust the servos depending on the value from the sensor
+void handleData(const double val)
+{
+
+  if( val > THRESHOLD)
+  {
+    servoThumb.write(180);
+  }
+  else if( val < THRESHOLD)
+  {
+    servoThumb.write(0);
+  }
+  
 }
 
 // Read the sensor values from the characteristic
