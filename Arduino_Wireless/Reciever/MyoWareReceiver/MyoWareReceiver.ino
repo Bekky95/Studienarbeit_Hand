@@ -53,15 +53,16 @@
 #include <vector>
 #include <Servo.h>
 
-#define THRESHOLD 100
+#define THRESHOLD 250
 
 // Pin defines
-#define THUMB_PIN   18
-#define RING_PIN    2
-#define MIDDLE_PIN  0
-#define POINTER_PIN 5
-#define THUMB_PIN   18
+static const int THUMB_PIN    = 18;
+static const int RING_PIN     = 2;
+static const int MIDDLE_PIN   = 0;
+static const int POINTER_PIN  = 5;
+static const int PINKY_PIN    = 15;
 
+static const int BUTTON_PIN = 23;
 
 // Servo class objects
 Servo servoThumb;
@@ -72,25 +73,36 @@ Servo servoPinky;
 
 
 // debug parameters
-const bool debugLogging = false; // set to true for verbose logging to serial
+const bool debugLogging = true; // set to true for verbose logging to serial
 
 std::vector<BLEDevice> vecMyoWareShields;
 
 // MyoWare class object
 MyoWare myoware;
 
+void IRAM_ATTR isr() {
+  //TODO: allow changing of mode here z.B. myoware to glove
+    Serial.println("BUTTON PRESS");
+}
+
 void setup()
 {
   Serial.begin(115200);
   while (!Serial);
 
+  attachInterrupt(BUTTON_PIN, isr, HIGH);
+
   // Attach the servo to the corresponding pin
   servoThumb.attach(THUMB_PIN);
+  servoThumb.write(30);
   servoRing.attach(RING_PIN);
+  servoRing.write(0);
   servoMiddle.attach(MIDDLE_PIN);
+  servoMiddle.write(0);
   servoPointer.attach(POINTER_PIN);
-  servoThumb.attach(THUMB_PIN);
-
+  servoPointer.write(0);
+  servoPinky.attach(PINKY_PIN);
+  servoPinky.write(0);
 /*
   pinMode(THUMB_PIN,OUTPUT);
   pinMode(RING_PIN,OUTPUT);
@@ -192,10 +204,12 @@ void setup()
       Serial.println(shield.localName());
     }
   }
+  
 }
 
 void loop()
-{  
+{ 
+  
   for (auto shield : vecMyoWareShields)
   {
     if (!shield)
@@ -236,6 +250,7 @@ void loop()
     BLECharacteristic sensorCharacteristic = myoWareService.characteristic(MyoWareBLE::uuidMyoWareCharacteristic.c_str());
 
     const double sensorValue = ReadBLEData(sensorCharacteristic);
+    handleData(sensorValue);
     Serial.print(sensorValue);
 
     if (vecMyoWareShields.size() > 1)
@@ -251,10 +266,18 @@ void handleData(const double val)
   if( val > THRESHOLD)
   {
     servoThumb.write(180);
+    servoRing.write(180);
+    servoMiddle.write(180);
+    servoPointer.write(180);
+    servoPinky.write(180);
   }
   else if( val < THRESHOLD)
   {
-    servoThumb.write(0);
+    servoThumb.write(30);
+    servoRing.write(0);
+    servoMiddle.write(0);
+    servoPointer.write(0);
+    servoPinky.write(0);
   }
   
 }
@@ -277,7 +300,7 @@ double ReadBLEData(BLECharacteristic& dataCharacteristic)
     {
       if (debugLogging)
       {
-        Serial.print("Unable to read characteristic: ");
+        Serial.print("Unable to read characteristic:");
         Serial.println(dataCharacteristic.uuid());
       }
       return 0.0;
@@ -299,3 +322,4 @@ void PrintPeripheralInfo(BLEDevice peripheral)
   Serial.print("' ");
   Serial.println(peripheral.advertisedServiceUuid());
 }
+
