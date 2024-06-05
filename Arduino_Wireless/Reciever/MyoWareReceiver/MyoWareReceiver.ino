@@ -52,17 +52,26 @@
 #include <MyoWare.h>
 #include <vector>
 #include <Servo.h>
+#include "esp_task_wdt.h"
 
 #define THRESHOLD 250
 
 // Pin defines
 static const int THUMB_PIN    = 18;
 static const int RING_PIN     = 2;
-static const int MIDDLE_PIN   = 0;
+static const int MIDDLE_PIN   = 16;
 static const int POINTER_PIN  = 5;
 static const int PINKY_PIN    = 15;
 
+// GPIO defines
 static const int BUTTON_PIN = 23;
+
+// Boolean to determine which mode to use
+// 1: MyoWare sensor
+// 0: Glove
+bool mode = 1;
+// Boolean to determine to print message or not
+bool output = 0;
 
 // Servo class objects
 Servo servoThumb;
@@ -73,26 +82,62 @@ Servo servoPinky;
 
 
 // debug parameters
-const bool debugLogging = true; // set to true for verbose logging to serial
+const bool debugLogging = false; // set to true for verbose logging to serial
 
+// The MyoWare devices
 std::vector<BLEDevice> vecMyoWareShields;
 
 // MyoWare class object
 MyoWare myoware;
 
+// ADC Definitions:
+//Daumen: 
+const int DAUMEN = 35;
+static int DaumenVal;
+static int DaumenDegree=20;
+
+//Zeigefinger:
+const int ZEIGEFINGER = 26; 
+static int ZeigefingerVal;
+static int ZeigefingerDegree=0;
+
+//Mittelfinger:
+const int MITTELFINGER = 34; 
+static int MittelfingerVal;
+static int MittelfingerDegree=0;
+
+//Ringfinger:
+const int RINGFINGER = 25; 
+static int RingfingerVal;
+static int RingfingerDegree=0;
+
+//Kleiner Finger:
+const int KLEINFINGER = 12; 
+static int KleinfingerVal;
+static int KleinfingerDegree=0;
+
+// Interrupt function called when the button is pressed
 void IRAM_ATTR isr() {
-  //TODO: allow changing of mode here z.B. myoware to glove
-    Serial.println("BUTTON PRESS");
+  mode = !mode;
+  output = 1;
+  esp_task_wdt_reset();
 }
 
 void setup()
 {
+  // Start Serial
   Serial.begin(115200);
   while (!Serial);
 
+  // Configure the ESP32 WDT
+  esp_task_wdt_init(100, false); // Set timeout to 10 seconds, enable panic (reset) if WDT expires
+  // Enable the ESP32 WDT interrupt
+  esp_task_wdt_add(NULL); // NULL means this task, add the current task to the WDT watch
+
+  // Configure the button input to react to a high level
   attachInterrupt(BUTTON_PIN, isr, HIGH);
 
-  // Attach the servo to the corresponding pin
+  // Attach the servo to the corresponding pin and set to 0
   servoThumb.attach(THUMB_PIN);
   servoThumb.write(30);
   servoRing.attach(RING_PIN);
@@ -118,7 +163,6 @@ void setup()
   if (!BLE.begin())
   {
     Serial.println("Starting BLE failed!");
-
     while (1);
   }
 
@@ -209,60 +253,112 @@ void setup()
 
 void loop()
 { 
-  
-  for (auto shield : vecMyoWareShields)
+  esp_task_wdt_reset();
+  // Controll hand depending on mode (Myoware sensor or glove)
+  if( mode )
   {
-    if (!shield)
-    {
-      Serial.print("Invalid MyoWare Wireless Shields pointer! MAC Address: ");
-      Serial.println(shield);
-      auto itr = std::find(vecMyoWareShields.begin(), vecMyoWareShields.end(), shield);
-      if (itr != vecMyoWareShields.end())
-        vecMyoWareShields.erase(itr);
-      continue;
+      for (auto shield : vecMyoWareShields)
+      {
+        if (!shield)
+        {
+          Serial.print("Invalid MyoWare Wireless Shields pointer! MAC Address: ");
+          Serial.println(shield);
+          auto itr = std::find(vecMyoWareShields.begin(), vecMyoWareShields.end(), shield);
+          if (itr != vecMyoWareShields.end())
+            vecMyoWareShields.erase(itr);
+          continue;
+        }
+
+        if (debugLogging)
+        {
+          Serial.print("Updating ");
+          PrintPeripheralInfo(shield);
+        }
+
+        if (!shield.connected())
+        {
+          // output zero if the Wireless shield gets disconnected
+          // this ensures data capture can continue for the 
+          // other shields that are connected
+          Serial.print("0.0"); 
+          Serial.print("\t"); 
+          continue;
+        }
+
+        BLEService myoWareService = shield.service(MyoWareBLE::uuidMyoWareService.c_str());
+        if (!myoWareService)
+        {
+          Serial.println("Failed finding MyoWare BLE Service!");
+          shield.disconnect();
+          continue;
+        }
+        
+        // get sensor data
+        BLECharacteristic sensorCharacteristic = myoWareService.characteristic(MyoWareBLE::uuidMyoWareCharacteristic.c_str());
+
+        // Read and Handle sensor data
+        const double sensorValue = ReadBLEData(sensorCharacteristic);
+        handleData(sensorValue);
+        Serial.print(sensorValue);
+
+        if (vecMyoWareShields.size() > 1)
+          Serial.print(","); 
     }
-
-    if (debugLogging)
-    {
-      Serial.print("Updating ");
-      PrintPeripheralInfo(shield);
-    }
-
-    if (!shield.connected())
-    {
-      // output zero if the Wireless shield gets disconnected
-      // this ensures data capture can continue for the 
-      // other shields that are connected
-      Serial.print("0.0"); 
-      Serial.print("\t"); 
-      continue;
-    }
-
-    BLEService myoWareService = shield.service(MyoWareBLE::uuidMyoWareService.c_str());
-    if (!myoWareService)
-    {
-      Serial.println("Failed finding MyoWare BLE Service!");
-      shield.disconnect();
-      continue;
-    }
-    
-    // get sensor data
-    BLECharacteristic sensorCharacteristic = myoWareService.characteristic(MyoWareBLE::uuidMyoWareCharacteristic.c_str());
-
-    const double sensorValue = ReadBLEData(sensorCharacteristic);
-    handleData(sensorValue);
-    Serial.print(sensorValue);
-
-    if (vecMyoWareShields.size() > 1)
-      Serial.print(","); 
+    Serial.println("");
   }
-  Serial.println("");
+  else
+  {
+    //Use the glove to control the hand
+    //Analogwerte auslesen
+    if( output )
+    {
+      output = 0;
+      Serial.println("glove mode activated....");
+    }
+    DaumenVal = analogRead(DAUMEN);
+    ZeigefingerVal = analogRead(ZEIGEFINGER);
+    MittelfingerVal = analogRead(MITTELFINGER);
+    RingfingerVal = analogRead(RINGFINGER);
+    KleinfingerVal = analogRead(KLEINFINGER); 
+/*
+    Serial.println(DaumenVal);
+    Serial.println(ZeigefingerVal);
+    Serial.println(MittelfingerVal);
+    Serial.println(RingfingerVal);
+    Serial.println(KleinfingerVal);
+*/
+    // Potiwert zu Fingerwinkel "transformieren"
+    DaumenDegree = regler_to_degree(DaumenVal);
+    ZeigefingerDegree = regler_to_degree(ZeigefingerVal);
+    MittelfingerDegree = regler_to_degree(MittelfingerVal);
+    RingfingerDegree = regler_to_degree(RingfingerVal);
+    KleinfingerDegree = regler_to_degree(KleinfingerVal);
+/*
+    Serial.println("Daumen" + DaumenDegree);
+    Serial.println("Zeige" + ZeigefingerDegree);
+    Serial.println("Mittel" + MittelfingerDegree);
+    Serial.println("Ring" + RingfingerDegree);
+    Serial.println("Klein" + KleinfingerDegree);
+*/
+    // Winkel an den Servomotor senden
+    if(DaumenDegree == 0)
+    {
+      DaumenDegree = 30;
+    }
+    servoThumb.write(DaumenDegree);
+    servoPointer.write(ZeigefingerDegree);
+    servoMiddle.write(MittelfingerDegree);
+    servoRing.write(RingfingerDegree);
+    servoPinky.write(KleinfingerDegree);
+  }
+ 
 }
 
 // adjust the servos depending on the value from the sensor
 void handleData(const double val)
 {
-
+  // Open/Close the hand depending on the value
+  // TODO: maybe add range around threshold in which the hand does not respond
   if( val > THRESHOLD)
   {
     servoThumb.write(180);
@@ -314,6 +410,7 @@ double ReadBLEData(BLECharacteristic& dataCharacteristic)
   return 0.0;
 }
 
+// Function to print the Info of the connected peripheral device
 void PrintPeripheralInfo(BLEDevice peripheral)
 {
   Serial.print(peripheral.address());
@@ -323,3 +420,41 @@ void PrintPeripheralInfo(BLEDevice peripheral)
   Serial.println(peripheral.advertisedServiceUuid());
 }
 
+// Function to translate the resistor values to angle
+int regler_to_degree(int regler) {
+  int degree;
+  if (regler >= 4000 && regler <= 4200) { //10kohm, 0-64Poti
+    degree = 0;
+  }
+  else if (regler >= 3500 && regler <= 3999) { //65-130Poti
+    degree = 20;
+  }
+  else if (regler >= 2800 && regler <= 3499) { //131-200Poti
+    degree = 40;
+  }
+  else if (regler >= 2200 && regler <= 2799) { //201-270Poti
+    degree = 60;
+  }
+  else if (regler >= 1800 && regler <= 2199) { //271-330Poti
+    degree = 80;
+  }
+  else if (regler >= 1200 && regler <= 1799) { //331-400Poti
+    degree = 100;
+  }
+  else if (regler >= 900 && regler <= 1199) { //401-470Poti
+    degree = 120;
+  }
+  else if (regler >= 600 && regler <= 899) { //471-540Poti
+    degree = 140;
+  }
+  else if (regler >= 300 && regler <= 599) { //541-615Poti
+    degree = 160;
+  }
+  else if (regler >= 0 && regler <= 299) { //20kohm; 616-677Poti
+    degree = 180;
+  }
+  else {
+    degree = 0;  // Fehlerbehandlung für Werte außerhalb des Bereichs
+  }
+  return degree;
+}

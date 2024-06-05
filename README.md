@@ -26,7 +26,7 @@ IO27/12
 GPIO 4 Servo:
 IO15/23 Pinky
 IO2/24  Ring
-IO0/25	Middle
+(IO0/25) Middle -> changed to IO16
 IO5/29	Pointer
 IO18/30	Thumb
 
